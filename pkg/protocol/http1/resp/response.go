@@ -322,7 +322,7 @@ func writeBodyStream(resp *protocol.Response, w network.Writer, sendBody bool) (
 				err = w.Flush()
 			}
 			if err == nil {
-				err = ext.WriteBodyChunked(w, resp.BodyStream())
+				err = resp.GetWriteBodyStreamChunkedHandler()(w, resp.BodyStream())
 			}
 			if err == nil {
 				err = ext.WriteTrailer(resp.Header.Trailer(), w)
