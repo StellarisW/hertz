@@ -426,7 +426,7 @@ func writeBodyStream(req *protocol.Request, w network.Writer) error {
 		req.Header.SetContentLength(-1)
 		err = WriteHeader(&req.Header, w)
 		if err == nil {
-			if req.WriteBodyStreamChunkedHandler() == nil {
+			if req.WriteBodyStreamChunkedHandler() != nil {
 				err = req.WriteBodyStreamChunkedHandler()(w, req.BodyStream())
 			} else {
 				err = ext.WriteBodyChunked(w, req.BodyStream())
