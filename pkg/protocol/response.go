@@ -43,7 +43,6 @@ package protocol
 
 import (
 	"errors"
-	"github.com/cloudwego/hertz/pkg/protocol/http1/ext"
 	"io"
 	"net"
 	"sync"
@@ -218,10 +217,7 @@ func (resp *Response) SetWriteBodyStreamChunkedHandler(f func(w network.Writer, 
 	resp.writeBodyChunkedHandler = f
 }
 
-func (resp *Response) GetWriteBodyStreamChunkedHandler() (f func(w network.Writer, r io.Reader) error) {
-	if resp.writeBodyChunkedHandler == nil {
-		return ext.WriteBodyChunked
-	}
+func (resp *Response) WriteBodyStreamChunkedHandler() (f func(w network.Writer, r io.Reader) error) {
 	return resp.writeBodyChunkedHandler
 }
 
