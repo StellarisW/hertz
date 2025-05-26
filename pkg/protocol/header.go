@@ -1583,6 +1583,7 @@ func ParseContentLength(b []byte) (int, error) {
 }
 
 func appendArgBytes(args []argsKV, key, value []byte, noValue bool) []argsKV {
+	hlog.Infof("appendArgBytes: key=%v value=%v stack=%v", string(key), string(value), string(debug.Stack()))
 	var kv *argsKV
 	args, kv = allocArg(args)
 	kv.key = append(kv.key[:0], key...)
@@ -1596,6 +1597,7 @@ func appendArgBytes(args []argsKV, key, value []byte, noValue bool) []argsKV {
 }
 
 func appendArg(args []argsKV, key, value string, noValue bool) []argsKV {
+	hlog.Infof("appendArgBytes: key=%v value=%v stack=%v", key, value, string(debug.Stack()))
 	var kv *argsKV
 	args, kv = allocArg(args)
 	kv.key = append(kv.key[:0], key...)

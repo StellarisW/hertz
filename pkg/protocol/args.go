@@ -43,7 +43,9 @@ package protocol
 
 import (
 	"bytes"
+	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"io"
+	"runtime/debug"
 
 	"github.com/cloudwego/hertz/internal/bytesconv"
 	"github.com/cloudwego/hertz/internal/nocopy"
@@ -205,6 +207,7 @@ func setArgBytes(h []argsKV, key, value []byte, noValue bool) []argsKV {
 				kv.value = append(kv.value[:0], value...)
 			}
 			kv.noValue = noValue
+			hlog.Infof("setArgBytes: key=%v value=%v stack=%v", string(key), string(value), string(debug.Stack()))
 			return h
 		}
 	}
@@ -222,6 +225,7 @@ func setArg(h []argsKV, key, value string, noValue bool) []argsKV {
 				kv.value = append(kv.value[:0], value...)
 			}
 			kv.noValue = noValue
+			hlog.Infof("setArg: key=%v value=%v stack=%v", key, value, string(debug.Stack()))
 			return h
 		}
 	}
