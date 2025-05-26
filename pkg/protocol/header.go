@@ -44,6 +44,7 @@ package protocol
 import (
 	"bytes"
 	"net/http"
+	"runtime/debug"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -577,6 +578,7 @@ func (h *ResponseHeader) SetContentLength(contentLength int) {
 			value = bytestr.StrIdentity
 		}
 		h.h = setArgBytes(h.h, bytestr.StrTransferEncoding, value, ArgsHasValue)
+		hlog.SystemLogger().Infof("Set transfer-encoding, stack=%s", string(debug.Stack()))
 	}
 }
 
