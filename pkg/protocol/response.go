@@ -43,8 +43,10 @@ package protocol
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"net"
+	"runtime/debug"
 	"sync"
 
 	"github.com/cloudwego/hertz/internal/bytesconv"
@@ -403,6 +405,7 @@ func (resp *Response) CloseBodyStream() error {
 	}
 	var err error
 	if bsc, ok := resp.bodyStream.(io.Closer); ok {
+		fmt.Printf("close body stream: stack=%s\n", string(debug.Stack()))
 		err = bsc.Close()
 	}
 	resp.bodyStream = nil
