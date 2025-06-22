@@ -43,7 +43,7 @@ package protocol
 
 import (
 	"errors"
-	"fmt"
+	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"io"
 	"net"
 	"runtime/debug"
@@ -405,7 +405,7 @@ func (resp *Response) CloseBodyStream() error {
 	}
 	var err error
 	if bsc, ok := resp.bodyStream.(io.Closer); ok {
-		fmt.Printf("close body stream: stack=%s\n", string(debug.Stack()))
+		hlog.SystemLogger().Info("close body stream: stack=%s\n", string(debug.Stack()))
 		err = bsc.Close()
 	}
 	resp.bodyStream = nil
